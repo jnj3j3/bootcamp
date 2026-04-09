@@ -22,8 +22,8 @@ export default function () {
 
     // DTO 구조에 맞춘 페이로드 설정
     const payload = JSON.stringify({
-        memberId: 80,
-        productId: [140, 141], // 리스트 형태
+        memberId: 1,
+        productId: [1, 2], // 리스트 형태
         count: [1, 1],           // 리스트 형태
         orderTime: new Date().toISOString(), // LocalDateTime 형식에 대응
     });

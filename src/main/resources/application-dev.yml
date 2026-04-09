@@ -3,10 +3,11 @@ port: 8081
 logging:
   level:
     #    root: INFO
+    #    root: ERROR
     root: DEBUG
     org.springframework.transaction: DEBUG #spring 트랜잭션 매니저 로그
     #    org.springframework.orm.jpa.JpaTransactionManager: DEBUG #JPA 연동 트랜잭션 매니저 클래스의 로그
-    #    org.springframework.orm.jpa: DEBUG #트랜잭션의 시작과 끝 (영속성 컨텍스트 생명주기)
+    org.springframework.orm.jpa: DEBUG #트랜잭션의 시작과 끝 (영속성 컨텍스트 생명주기)
     org.hibernate.SQL: DEBUG #하이버네이트의 실행 과정 (쿼리 생성 및 실행)
     #    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
 
@@ -19,6 +20,34 @@ decorator:
       logging: slf4j
       tracing:
         include-parameter-values: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"  # 모든 엔드포인트 노출 (개발용)
+      base-path: /actuator
+
+  endpoint:
+    health:
+      show-details: always
+    prometheus:
+      enabled: true
+
+  metrics:
+    enable:
+      jvm: true
+      system: true
+      tomcat: true
+      process: true
+      hikaricp: true
+      jdbc: true
+    tags:
+      application: ${spring.application.name}
+  prometheus:
+    metrics:
+      export:
+        enabled: true
 
 spring:
   config:
